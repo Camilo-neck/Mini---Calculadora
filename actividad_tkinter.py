@@ -36,26 +36,32 @@ def init_window():
     label_respuesta = tk.Label(root, text='', font=('Arial Bold', 25))
     label_respuesta.grid(column=1, row=6)
 
-    calcular = tk.Button(root, text='Calcular', bg='red', fg='white', command=lambda:(click_calcular(label_respuesta, entrada1.get(), entrada2.get(), combo_operadores.get(),decimales(decimal_var))))
+    calcular = tk.Button(root, text='Calcular', bg='cyan', fg='black', command=lambda:(click_calcular(label_respuesta, entrada1.get(), entrada2.get(), combo_operadores.get(),decimales(decimal_var))))
     calcular.grid(column=1, row=4)
 
     decimal_var= IntVar()
     check_decimales = Checkbutton(root, text="¿Desea usar decimales?", font=('Arial Bold', 12),variable = decimal_var, onvalue=1, offvalue=0)
     check_decimales.grid(column=0, row=5)
 
-    dark_mode = ttk.Button(
-        root, text="Dark", 
+    varMode = IntVar()
+    DarkMode = tk.Radiobutton(
+        root,
+        text='Dark',
+        variable=varMode,
+        value=1,
         command=lambda:dark_window(
-        root,Label,label_entrada1,label_entrada2,label_operador,label_resultado,label_respuesta),
-        width=5)
-    dark_mode.grid(column=2, row=0)
-
-    light_mode = ttk.Button(
-        root, text="Light", 
-        command=lambda:light_window(
-        root,Label,label_entrada1,label_entrada2,label_operador,label_resultado,label_respuesta,check_decimales), 
-        width=5)
-    light_mode.grid(column=3, row=0)
+            root,Label,label_entrada1,label_entrada2,label_operador,label_resultado,label_respuesta,calcular,check_decimales,varMode
+        ))
+    DarkMode.grid(column=2,row=0)
+    LightMode = tk.Radiobutton(
+        root,
+        text='Dark',
+        variable=varMode,
+        value=2,
+        command=lambda:dark_window(
+            root,Label,label_entrada1,label_entrada2,label_operador,label_resultado,label_respuesta,calcular,check_decimales,varMode
+        ))
+    LightMode.grid(column=3,row=0)
 
     root.mainloop()
 
@@ -63,24 +69,26 @@ def decimales(check_var):
     if check_var.get()==1:
         return True
 
-def dark_window(window,title,label1,label2,operador,resultado,respuesta):
-    window.config(bg="black")
-    title.config(bg='black',fg='white')
-    label1.config(bg='black',fg='white')
-    label2.config(bg='black',fg='white')
-    operador.config(bg='black',fg='white')
-    resultado.config(bg='black',fg='white')
-    respuesta.config(bg='black',fg='white')
-
-def light_window(window,title,label1,label2,operador,resultado,respuesta,decimales):
-    window.config(bg="white")
-    title.config(bg='white',fg='black')
-    label1.config(bg='white',fg='black')
-    label2.config(bg='white',fg='black')
-    operador.config(bg='white',fg='black')
-    resultado.config(bg='white',fg='black')
-    decimales.config(bg='white',fg='black')
-    respuesta.config(bg='white',fg='black')
+def dark_window(window,title,label1,label2,operador,resultado,respuesta, calcular,decimales,varMode):
+    if varMode.get() == 1:
+        window.config(bg="black")
+        title.config(bg='black',fg='white')
+        label1.config(bg='black',fg='white')
+        label2.config(bg='black',fg='white')
+        operador.config(bg='black',fg='white')
+        resultado.config(bg='black',fg='white')
+        respuesta.config(bg='black',fg='white')
+        calcular.config(bg='red',fg='white')
+    else:
+        window.config(bg="white")
+        title.config(bg='white',fg='black')
+        label1.config(bg='white',fg='black')
+        label2.config(bg='white',fg='black')
+        operador.config(bg='white',fg='black')
+        resultado.config(bg='white',fg='black')
+        decimales.config(bg='white',fg='black')
+        respuesta.config(bg='white',fg='black')
+        calcular.config(bg='cyan', fg='black')
 
 def operaciones(num1, num2, operador):
     if operador == '+':
@@ -93,18 +101,27 @@ def operaciones(num1, num2, operador):
         try:
             resultado = round(num1 / num2,2)
         except ZeroDivisionError:
-            messagebox.showwarning(
+            messagebox.showerror(
                 "Zero Division Error", "No es posible dividir por 0."
             )
             resultado = ''
-    else:
+    elif operador == 'pow':
         resultado = num1 ** num2
+    else:
+        resultado = 'Esocoja una operación'
 
     return resultado
 
 def click_calcular(label, num1, num2, operador, check_fun=False):
-    valor1 = float(num1)
-    valor2 = float(num2)
+    try:
+        valor1 = float(num1)
+        valor2 = float(num2)
+    except ValueError:
+        messagebox.showwarning(
+            'Empty Values', 'Rellene los campos de valores'
+        )
+        resultado = ''
+        return resultado
 
     if check_fun==True:
         try:
