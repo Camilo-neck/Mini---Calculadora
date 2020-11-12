@@ -9,5 +9,4 @@ Widgets extra:
 -Ícono en la ventana.
 
 Logo: 
-![GitHub Logo](uwu.ico)
-Format: ![Alt Text](url)
+![App Logo](uwu.ico)
