@@ -7,3 +7,7 @@ Widgets extra:
 -Radiobuttons : Modifican el color de énfaseis en la ventana (dark y light mode).
 -Ventanas emergentes: Ventanas que muestran advertencias y errores, como por ejemplo la división por cero.
 -Ícono en la ventana.
+
+Logo: 
+![GitHub Logo](/images/uwu.ico)
+Format: ![Alt Text](url)
