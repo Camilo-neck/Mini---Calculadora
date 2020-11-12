@@ -10,7 +10,11 @@ Widgets extra:
 
 Logo: 
 ![App Logo](uwu.ico)
+
+
 Interface Light Mode:
 ![App Light](Interfaz_light.png)
+
+
 Interface Dark Mode:
 ![App Dark](Interfaz_dark.png)
