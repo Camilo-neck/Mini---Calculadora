@@ -8,11 +8,6 @@ Widgets extra:
 -Ventanas emergentes: Ventanas que muestran advertencias y errores, como por ejemplo la división por cero.
 -Ícono en la ventana.
 
-Logo: 
-
-![App Logo](uwu.ico)
-
-
 Interface Light Mode:
 
 ![App Light](Interfaz_light.png)
